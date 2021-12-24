@@ -1,13 +1,14 @@
 package alidns
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth/credentials"
 	"github.com/jetstack/cert-manager/pkg/acme/webhook"
 	"github.com/jetstack/cert-manager/pkg/acme/webhook/apis/acme/v1alpha1"
-	apis "github.com/jetstack/cert-manager/pkg/apis/certmanager/v1alpha1"
+	apis "github.com/jetstack/cert-manager/pkg/apis/meta/v1"
 	"github.com/jetstack/cert-manager/pkg/issuer/acme/dns/util"
 	"github.com/pkg/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -103,7 +104,7 @@ func (s *Solver) getCredential(cfg *Config, ns string) (*credentials.AccessKeyCr
 }
 
 func (s *Solver) getSecretData(selector apis.SecretKeySelector, ns string) ([]byte, error) {
-	secret, err := s.client.CoreV1().Secrets(ns).Get(selector.Name, metav1.GetOptions{})
+	secret, err := s.client.CoreV1().Secrets(ns).Get(context.TODO(), selector.Name, metav1.GetOptions{})
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to load secret %q", ns+"/"+selector.Name)
 	}

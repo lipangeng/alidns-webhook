@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	apis "github.com/jetstack/cert-manager/pkg/apis/certmanager/v1alpha1"
-	extapi "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	apis "github.com/jetstack/cert-manager/pkg/apis/meta/v1"
+	extapi "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 )
 
 // Config is a structure that is used to decode into when
